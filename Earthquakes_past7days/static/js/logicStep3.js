@@ -23,7 +23,7 @@ attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap
 // Create a base layer that holds both maps.
 let baseMaps = {
     "Streets": streets,
-    "Satellite Streets": satelliteStreets
+    "Satellite": satelliteStreets
 };
 
 // Create the map object with center, zoom level and default layer.
@@ -97,9 +97,9 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
 // Creating a GeoJSON layer with the retrieved data.
   L.geoJson(data, {
 
-// We turn each feature into a circleMarker on the map.
+        // We turn each feature into a circleMarker on the map.
     
-pointToLayer: function(feature, latlng) {
+        pointToLayer: function(feature, latlng) {
             console.log(data);
             return L.circleMarker(latlng);
         },
