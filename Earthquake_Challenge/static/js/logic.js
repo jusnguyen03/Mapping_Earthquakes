@@ -1,6 +1,5 @@
 // Add console.log to check to see if our code is working.
 console.log("working");
-
 // We create the tile layer that will be the background of our map.
 let streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -15,18 +14,29 @@ attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap
     id: 'mapbox/satellite-streets-v11',
 	accessToken: API_KEY
 });
+// We create the light view tile layer that will be an option for our map.
+let lights = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/light-v10',
+	accessToken: API_KEY
+});
+
 // Create a base layer that holds both maps.
 let baseMaps = {
     "Streets": streets,
-    "Satellite": satelliteStreets
+    "Satellite": satelliteStreets,
+    "Light": lights
 };
 // Create the earthquake layer for our map.
 let earthquakes = new L.LayerGroup();
+let tectonicPlate = new L.LayerGroup();
 
 // We define an object that contains the overlays.
 // This overlay will be visible all the time.
 let overlays = {
-    Earthquakes: earthquakes
+    Earthquakes: earthquakes,
+    TectonicPlate: tectonicPlate
 };
 
 // Create the map object with center, zoom level and default layer.
@@ -112,6 +122,24 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
             layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
       }
   }).addTo(earthquakes);
+
+function styleLine(feature) {
+    return {
+      color: "#FF7800",
+      weight: 3,
+      opacity: 0.65
+    };
+    }
+
+d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json").then(function(data) {
+L.geoJson(data, {
+    pointToLayer: function(feature, latlng) {      
+        return L.lineString(latlng);
+      },
+  style: styleLine
+}).addTo(tectonicPlate);
+ })});
+
 // Create a legend control object.
 let legend = L.control({
     position: "bottomright"
@@ -139,6 +167,6 @@ for (var i = 0; i < magnitudes.length; i++) {
 return div;
 };
 legend.addTo(map);
-    // Then we add the earthquake layer to our map.
+    // Then we add the earthquake and tectonic plate layer to our map.
     earthquakes.addTo(map);
-});
+    tectonicPlate.addTo(map);
