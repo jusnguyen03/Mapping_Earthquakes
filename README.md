@@ -29,4 +29,5 @@ The goals for this challenge are:
 Please check file "logic.js" "style.css" and "index.html" in the repository for code.
 Also, please click on the link for the deployed page.
 
+
 ![](https://github.com/jusnguyen03/Mapping_Earthquakes/blob/Earthquake_Challenge/Earthquake_Challenge/Challenge13EarthquakeMap.png)
