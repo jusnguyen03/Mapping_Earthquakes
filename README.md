@@ -30,4 +30,4 @@ Please check file "logic.js" "style.css" and "index.html" in the repository for 
 Also, please click on the link for the deployed page.
 
 
-![](https://github.com/jusnguyen03/Mapping_Earthquakes/blob/Earthquake_Challenge/Earthquake_Challenge/Challenge13EarthquakeMap.png)
+![](https://github.com/jusnguyen03/Mapping_Earthquakes/blob/Earthquake_Challenge/Earthquake_Challenge/Challenge13Earthquake.png)
