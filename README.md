@@ -1,7 +1,5 @@
 # Mapping_Earthquakes
 
-# Mapping_Earthquakes
-
 ## Project Overview
 I will be using Leaflet.js API to populate a geographical map with GeoJSON earthquake data from a URL. I will be:
   - Creating a branch from the master branch on GitHub.
